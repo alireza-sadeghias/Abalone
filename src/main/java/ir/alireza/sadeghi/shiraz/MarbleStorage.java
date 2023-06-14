@@ -1,7 +1,8 @@
 package ir.alireza.sadeghi.shiraz;
 
-import java.util.LinkedList;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.LinkedList;
 
 /*
  * The marbles are stored here.
@@ -71,7 +72,7 @@ public class MarbleStorage {
 		else {
 			//player 1
 			for (int i = 0; i < 10; i++) {
-				
+
 				if (Board.hashBoard.get("A" + i) != null) {
 					Marble p = new Marble(Board.hashBoard.get("A" + i).centerX, Board.hashBoard.get("A" + i).centerY, 1, "A" + i, true);
 					Board.hashBoard.get("A" + i).setFull(p);
@@ -112,8 +113,8 @@ public class MarbleStorage {
 		}
 		return pieceGroup;
 	}
-	
-	//deep clone the whole marblestorage
+
+	//deep clone the whole marble storage
 	public MarbleStorage clone() {
 		MarbleStorage marbles = new MarbleStorage();
 		marbles.storage = new LinkedList<Marble>();

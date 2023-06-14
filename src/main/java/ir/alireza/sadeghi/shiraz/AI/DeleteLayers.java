@@ -1,4 +1,4 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 /*
  * Can delete layers or even whole branches of a tree.

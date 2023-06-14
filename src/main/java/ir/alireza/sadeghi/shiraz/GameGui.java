@@ -1,35 +1,34 @@
 package ir.alireza.sadeghi.shiraz;
 
-import ir.alireza.sadeghi.shiraz.AI.EvaluationFunction;
-import ir.alireza.sadeghi.shiraz.AI.GameState;
-import ir.alireza.sadeghi.shiraz.AI.MonteCarlo;
-import ir.alireza.sadeghi.shiraz.AI.Node;
-import ir.alireza.sadeghi.shiraz.AI.WeightOptimisation.GeneticLoop;
+import ir.alireza.sadeghi.shiraz.ai.EvaluationFunction;
+import ir.alireza.sadeghi.shiraz.ai.GameState;
+import ir.alireza.sadeghi.shiraz.ai.MonteCarlo;
+import ir.alireza.sadeghi.shiraz.ai.Node;
+import ir.alireza.sadeghi.shiraz.ai.weight.optimisation.GeneticLoop;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.ChoiceBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
  * Handles the game itself. So when the game is being played, this screen is showed.
  */
 
 public class GameGui extends Application{
-	
+	private final static Logger logger = LogManager.getLogger(GameGui.class);
+
 	public Board board;
 	static BorderPane MainScene;
 	static Pane Screen;
@@ -43,13 +42,13 @@ public class GameGui extends Application{
 
 	public void start( Stage stage) {
 		try {
-			Button buttonAI = new Button("Press me twice to run the genetic algorithm");
+			Button buttonAI = new Button("برای اجرای الگوریتم ژنتیک مرا دوبار فشار دهید");
 
 			buttonAI.setOnAction(e -> {
 				
 				//need to create this
 				if ((Move.initialBoard == null ) || Move.mcts && Move.initialBoard == null) {
-					System.out.println("enter");
+					logger.trace("enter");
 					Move.initialBoard = BoardMethods.copyHashBoard(Board.hashBoard);
 					Move.initial = new GameState(Move.initialBoard, GameMethods.changeBack(Move.playersTurn));
 					Move.monteCarlo = new MonteCarlo(new Node<GameState>(Move.initial));
@@ -60,7 +59,7 @@ public class GameGui extends Application{
 				}
 			});
 
-		    Label winner_label = new Label("Winning Player :\t");
+		    Label winner_label = new Label("برنده:\t");
 		     double MAX_FONT_SIZE = 30.0; // define max font size you need
 		     winner_label.setFont(new Font(MAX_FONT_SIZE));		
 		     winner_text.setFont(new Font(MAX_FONT_SIZE));		
@@ -70,23 +69,23 @@ public class GameGui extends Application{
 		     score_text3.setFont(new Font(MAX_FONT_SIZE));
 
 		     HBox winner = new HBox(winner_label, winner_text);
-			Label player_label = new Label("Player turn:\t");
+			Label player_label = new Label("نوبت بازیکن:\t");
 			player_label.setFont(new Font(MAX_FONT_SIZE));		
 
 		    HBox playerBox = new HBox(player_label, player_text);
-			Label score_label1 = new Label("Player 1 score is :\t");
+			Label score_label1 = new Label("امتیاز بازیکن 1 :\t");
 			score_label1.setFont(new Font(MAX_FONT_SIZE));		
 			Text tex = new Text("/6");
 			tex.setFont(new Font(MAX_FONT_SIZE));		
 		    HBox score = new HBox(score_label1, score_text1, tex);
 		    
-		    Label score_label2 = new Label("Player 2 score is :\t");
+		    Label score_label2 = new Label("امتیاز بازیکن 2 :\t");
 		    score_label2.setFont(new Font(MAX_FONT_SIZE));		
 		    Text tex2 = new Text("/6");
 			tex2.setFont(new Font(MAX_FONT_SIZE));	
 			HBox score2 = new HBox(score_label2, score_text2, tex2);
 			
-			Label score_label3 = new Label("Player 3 score is :\t");
+			Label score_label3 = new Label("امتیاز بازیکن 3 :\t");
 		    score_label3.setFont(new Font(MAX_FONT_SIZE));		
 		    Text tex3 = new Text("/6");
 			tex3.setFont(new Font(MAX_FONT_SIZE));	
@@ -94,7 +93,7 @@ public class GameGui extends Application{
 			
 			GridPane SubScene = new GridPane();
 			HBox hbox3 = new HBox();
-			Button reset = new Button("RESET");
+			Button reset = new Button("ریست");
 			//hbox3.getChildren().add(reset);
 			if (GameData.numberPlayers ==2) {
 				GridPane.setRowIndex(hbox3, 5);
@@ -123,11 +122,11 @@ public class GameGui extends Application{
 					GridPane.setRowIndex(buttonAI, 7);
 					GridPane.setRowIndex(placeholder2, 8);
 					SubScene.getChildren().addAll(placeholder,buttonAI, placeholder2);
-					Label Label3 = new Label("Or do a custom game.");
+					Label Label3 = new Label("یا یک بازی دیگر با هوش مصنوعی!");
 					GridPane.setRowIndex(Label3, 9);
-					Label Label4 = new Label("Player 1");
+					Label Label4 = new Label("بازیکن 1");
 					GridPane.setRowIndex(Label4, 10);
-					Label Label5 = new Label("Player 2");
+					Label Label5 = new Label("بازیکن 2");
 					GridPane.setRowIndex(Label5, 12);
 	
 					ChoiceBox choiceBox = new ChoiceBox();
@@ -150,7 +149,7 @@ public class GameGui extends Application{
 					SubScene.getChildren().addAll(Label3,Label4,choiceBox,Label5,choiceBox2);
 					
 					
-					Button startAI = new Button("Start your custom AI game");
+					Button startAI = new Button("شروع بازی هوش مصنوعی");
 					startAI.setOnAction(e -> {
 						if(choiceBox.getValue() != null && choiceBox2.getValue()!= null) {
 							EvaluationFunction.AITestingON = false;
@@ -173,13 +172,13 @@ public class GameGui extends Application{
 					GridPane.setRowIndex(placeholder2, 8);
 					SubScene.getChildren().addAll(placeholder,buttonAI, placeholder2);
 					
-					Label Label3 = new Label("Or do a custom game.");
+					Label Label3 = new Label("یا یک بازی دیگر.");
 					GridPane.setRowIndex(Label3, 9);
-					Label Label4 = new Label("Player 1");
+					Label Label4 = new Label("بازیکن 1");
 					GridPane.setRowIndex(Label4, 10);
-					Label Label5 = new Label("Player 2");
+					Label Label5 = new Label("بازیکن 2");
 					GridPane.setRowIndex(Label5, 12);
-					Label Label6 = new Label("Player 3");
+					Label Label6 = new Label("بازیکن 3");
 					GridPane.setRowIndex(Label6, 14);
 							
 	
@@ -211,7 +210,7 @@ public class GameGui extends Application{
 					SubScene.getChildren().addAll(Label3,Label4,choiceBox,Label5,choiceBox2, Label6, choiceBox3);
 					
 					
-					Button startAI = new Button("Start your custom AI game");
+					Button startAI = new Button("بازی با هوش مصنوعی");
 					startAI.setOnAction(e -> {
 						if(choiceBox.getValue() != null && choiceBox2.getValue()!= null && choiceBox3.getValue() != null) {
 							EvaluationFunction.AITestingON = false;
@@ -230,13 +229,13 @@ public class GameGui extends Application{
 			}
 			player_text.setText("1");
 			
-			// System.out.println(stage.getWidth()+" "+stage.getHeight());
+			logger.trace(stage.getWidth()+" "+stage.getHeight());
 			board = new Board(stage.getWidth() / 2,
 					stage.getHeight() / 2);
 			//ir.alireza.sadeghi.shiraz.MarbleStorage m = new ir.alireza.sadeghi.shiraz.MarbleStorage();
 			Board.boardMarbles = new MarbleStorage();
 			Scene scene = newScene(Board.boardMarbles, board,SubScene);
-			stage.setTitle("Abalone Project");
+			stage.setTitle("بازی ابالون");
 
 			stage.setScene(scene);
 			stage.show();
@@ -261,12 +260,12 @@ public class GameGui extends Application{
 			scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
 				if(e.getCode() == KeyCode.DOWN) {
 					Move.checkAI(Board.hashBoard);
-					System.out.println("--did ai move and deleted tree--");
+					logger.trace("--did ai move and deleted tree--");
 				}
 			});
 
 		} catch (Exception e) {
-			System.out.println("Exception in GUI Creation" + e.getMessage());
+			logger.error("Exception in GUI Creation" + e.getMessage());
 		}
 
 	}

@@ -1,14 +1,13 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
-import ir.alireza.sadeghi.shiraz.AI.WeightOptimisation.GameEnvironment;
 import ir.alireza.sadeghi.shiraz.Board;
-import ir.alireza.sadeghi.shiraz.GameData;
-import ir.alireza.sadeghi.shiraz.Hexagon;
-
-import java.util.Hashtable;
+import ir.alireza.sadeghi.shiraz.ai.weight.optimisation.GameEnvironment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EvaluationFunction {
 
+	private final static Logger logger = LogManager.getLogger(EvaluationFunction.class);
 	private double f1;
 	private double f2;
 	private double f3;
@@ -45,10 +44,6 @@ public class EvaluationFunction {
 		if (gameState.oldGameState != null) {
 			old = new Strategies(gameState.oldGameState);
 		}
-		Hashtable<String, Hexagon> boardState = gameState.boardState;
-
-		boolean isPlayer1AI = GameData.move.player1AI;
-		boolean isPlayer2AI = GameData.move.player2AI;
 
 		Strategies strategies = new Strategies(gameState);
 
@@ -85,18 +80,18 @@ public class EvaluationFunction {
 		}
 
 		if(!AITestingON) {
-			String Name = null;
+			String name = null;
 			if (gameState.evaluateFrom == 1) {
-				Name = Name1;
+				name = Name1;
 			}
 			if (gameState.evaluateFrom == 2) {
-				Name = Name2;
+				name = Name2;
 			}
 			if (gameState.evaluateFrom == 3) {
-				Name = Name3;
+				name = Name3;
 			}
-
-			modeDet = new ModeDetermination(ReadMatrix.ReadIn(System.getProperty("user.dir")+ReadMatrix.Slash+ "ir/alireza/sadeghi/shiraz/AI" +ReadMatrix.Slash+"StartingAI"+ReadMatrix.Slash+Name+".txt"));
+			logger.trace("calling read in with :{}",name);
+			modeDet = new ModeDetermination(ReadMatrix.readIn(System.getProperty("user.dir")+ReadMatrix.slash + "\\src\\main\\java\\ir\\alireza\\sadeghi\\shiraz\\ai\\StartingAI\\" +name+".txt"));
 		}else{
 			if (gameState.evaluateFrom == 1) {
 				modeDet = new ModeDetermination(GameEnvironment.player1);

@@ -1,8 +1,10 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 import ir.alireza.sadeghi.shiraz.BoardMethods;
 import ir.alireza.sadeghi.shiraz.GameMethods;
 import ir.alireza.sadeghi.shiraz.Hexagon;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -13,9 +15,11 @@ import java.util.Random;
  */
 
 public class MonteCarlo {
-	
+
+	private static final Logger logger = LogManager.getLogger(MonteCarlo.class);
+
 	//this tree stays the same during the whole game - although if it is really possible, it starts from scratch
-	Tree<GameState> monteCarloTree; 
+	Tree<GameState> monteCarloTree;
 	Random random = new Random();
 	private final static double explorationParam = Math.sqrt(2);
 	private boolean chooseForAIMove;
@@ -37,7 +41,7 @@ public class MonteCarlo {
 		//will still finish current simulation
 		double curr = System.currentTimeMillis();
 		while ((System.currentTimeMillis() - curr) < (numberSeconds*1000)) {
-			System.out.println("cutoff " + currentNode);
+			logger.trace("cutoff " + currentNode);
 			currentNode = 1;
 			selection(monteCarloTree.root);
 		}
@@ -141,7 +145,7 @@ public class MonteCarlo {
 		int i = 0;
 		while (!isThere && i < monteCarloTree.root.children.size()) {
 			if (!monteCarloTree.root.isLeaf()) {
-				if (BoardMethods.compareHashtables(monteCarloTree.getRoot().children.get(i).data.boardState, board)) {
+				if (BoardMethods.compareHashTables(monteCarloTree.getRoot().children.get(i).data.boardState, board)) {
 					changeRoot(monteCarloTree.getRoot().children.get(i));
 					isThere = true;
 				}

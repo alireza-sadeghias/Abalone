@@ -1,7 +1,9 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
-import ir.alireza.sadeghi.shiraz.AI.WeightOptimisation.GameEnvironment;
 import ir.alireza.sadeghi.shiraz.*;
+import ir.alireza.sadeghi.shiraz.ai.weight.optimisation.GameEnvironment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Hashtable;
 
@@ -12,13 +14,14 @@ import java.util.Hashtable;
  * -the board, marbles and move already have to be created.
  * -the parameter is the board.
  * -this will return the board, but it is also possible to return the number of moves.
- * -i made it so that when you push the "perform ai move" button in the gamegui, it automatically runs a whole game.
+ * -I made it so that when you push the "perform AI move" button in the game gui, it automatically runs a whole game.
  * -can run multiple games in a row.
- * -if you want to do it with multiple ais, the ai needs to be changed before this method is ran again.
+ * -if you want to do it with multiple AIs, the AI needs to be changed before this method is running again.
  */
 
 public class AutomaticGamePlay {
-	
+
+	private final static Logger logger = LogManager.getLogger(AutomaticGamePlay.class);
 	public static int[] playGame(Hashtable<String, Hexagon> startBoard) {
 		Hashtable<String, Hexagon> board = BoardMethods.copyHashBoard(startBoard);
 		int[] result = new int[2];
@@ -47,9 +50,7 @@ public class AutomaticGamePlay {
 		while(!Move.automaticGameEnd && Traceback.totalMoves < GameEnvironment.limit){
 			Move.checkAI(board);
 		}
-		System.out.println("winner is " + Move.winnerAutomaticGame);
-		
-		int winner = Move.winnerAutomaticGame;
+		logger.trace("winner is " + Move.winnerAutomaticGame);
 		
 		result[0] = Traceback.totalMoves;
 		result[1] = Move.point - Move.point2;
@@ -75,7 +76,7 @@ public class AutomaticGamePlay {
 		Move.adding = false;
 		Move.ai = false;
 		AddNodes.nodeNR = 1;
-		ModeDetermination.Counter = 1;
+		ModeDetermination.counter = 1;
 		
 		return result;
 	}

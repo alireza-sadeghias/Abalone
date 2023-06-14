@@ -1,11 +1,12 @@
 package ir.alireza.sadeghi.shiraz;
 
+import ir.alireza.sadeghi.shiraz.ai.GameState;
+import ir.alireza.sadeghi.shiraz.ai.MonteCarlo;
+import ir.alireza.sadeghi.shiraz.ai.PerformAIAction;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
-import ir.alireza.sadeghi.shiraz.AI.GameState;
-import ir.alireza.sadeghi.shiraz.AI.MonteCarlo;
-import ir.alireza.sadeghi.shiraz.AI.PerformAIAction;
-import javafx.scene.paint.Color;
 
 
 //trying to clean this one up a bit

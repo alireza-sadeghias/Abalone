@@ -1,6 +1,6 @@
 package ir.alireza.sadeghi.shiraz;
 
-import ir.alireza.sadeghi.shiraz.AI.ReadMatrix;
+import ir.alireza.sadeghi.shiraz.ai.ReadMatrix;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +20,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileInputStream;
 
@@ -29,17 +31,17 @@ import java.io.FileInputStream;
 
 public class Main extends Application {
 
+    private final static Logger logger = LogManager.getLogger(Main.class);
     DropShadow shadow = new DropShadow();
     public GameGui Game;
 
-
     public void start(Stage primaryStage) throws Exception {
 
-        System.out.println("Running on: "+System.getProperty("os.name"));
+        logger.trace("Running on: "+System.getProperty("os.name"));
         if(System.getProperty("os.name").contains("Windows")){
-            ReadMatrix.Slash = "\\";
+            ReadMatrix.slash = "\\";
         }else{
-            ReadMatrix.Slash = "//";
+            ReadMatrix.slash = "//";
         }
 
         primaryStage.setTitle("Team 1 -  Project 2.1");
@@ -53,23 +55,6 @@ public class Main extends Application {
         chooseP.setAlignment(Pos.CENTER);
         chooseP.setSpacing(20);
         
-//        Button twoP = new Button("Two players");
-//        Button threeP = new Button("Three players");
-//        twoP.setStyle("-fx-background-color: darkgray");
-//        threeP.setStyle("-fx-background-color: white");
-        
-//        twoP.setOnAction(e ->{
-////        	threeP.setStyle("-fx-background-color: white");
-//
-//            twoP.setStyle("-fx-background-color: darkgray");
-//        });
-//        threeP.setOnAction(e ->{
-//        	twoP.setStyle("-fx-background-color: white");
-//            ir.alireza.sadeghi.shiraz.GameData.numberPlayers =3;
-//            threeP.setStyle("-fx-background-color: darkgray");
-//        });
-//        chooseP.getChildren().addAll(twoP);
-
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(5.0);
         dropShadow.setOffsetX(3.0);
@@ -89,9 +74,6 @@ public class Main extends Application {
         settings.getStyleClass().add("menu_items");
         Button rules = new Button("قوانین");
         rules.getStyleClass().add("menu_items");
-//        Button credits = new Button("CREDITS");
-//        crediton credits = new Button("CREDITS");
-//        credits.getStyleClass().add("menu_items");
 
         HBox menuBox = new HBox();
         menuBox.setAlignment(Pos.CENTER);
@@ -157,7 +139,6 @@ public class Main extends Application {
 
         Scene scene = new Scene(pane,3000,2000);
 
-        scene.getStylesheets().add("application/ir.alireza.sadeghi.shiraz.Main.css");
         primaryStage.setScene(scene);
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -175,75 +156,6 @@ public class Main extends Application {
         backCont.getChildren().add(back);
         backCont.setAlignment(Pos.CENTER_RIGHT);
         backCont.setPadding(new Insets(50, 50, 50, 50));
-
-        //Credits:
-//        VBox creditsMainCont = new VBox();
-
-//        HBox credTitleCont = new HBox();
-//        credTitleCont.setAlignment(Pos.CENTER);
-//        Text credTitle = new Text("CREDITS");
-//        credTitle.setStyle("-fx-font-size: 30px;");
-//        credTitleCont.getChildren().add(credTitle);
-//        credTitleCont.setPrefHeight(100);
-
-//        HBox credSubTitleCont = new HBox();
-//        credSubTitleCont.setAlignment(Pos.CENTER);
-//        Text credSubTitle = new Text("This is a sub credit title for showcasing the work of team 1.");
-//        credSubTitleCont.getChildren().add(credSubTitle);
-//        credSubTitleCont.setPrefHeight(50);
-//        credSubTitle.setStyle("-fx-font-size: 20px;");
-//        GridPane credMainCont = new GridPane();
-//        credMainCont.setStyle("-fx-font-size: 18px;");
-//        credMainCont.setPadding(new Insets(50, 50, 50, 50));
-//        //Setting the vertical and horizontal gaps between the columns
-//        credMainCont.setVgap(50);
-//        credMainCont.setHgap(50);
-
-//        Text SouzanTitle = new Text("Souzan Abboud");
-//        Text WafaaTitle = new Text("Wafaa Aljbawi");
-//        Text HendrikTitle = new Text("Hendrik Baacke");
-//        Text JannekeTitle = new Text("Janneke van Baden");
-//        Text NickTitle = new Text("Nick Bast");
-//        Text FredTitle = new Text("Fred Bedetse");
-
-//        StackPane souzanTitleBG = new StackPane();
-//        StackPane wafaaTitleBG = new StackPane();
-//        StackPane hendrikTitleBG = new StackPane();
-//        StackPane jannekeTitleBG = new StackPane();
-//        StackPane nickTitleBG = new StackPane();
-//        StackPane fredTitleBG = new StackPane();
-
-//        souzanTitleBG.getChildren().add(SouzanTitle);
-//        wafaaTitleBG.getChildren().add(WafaaTitle);
-//        hendrikTitleBG.getChildren().add(HendrikTitle);
-//        jannekeTitleBG.getChildren().add(JannekeTitle);
-//        nickTitleBG.getChildren().add(NickTitle);
-//        fredTitleBG.getChildren().add(FredTitle);
-
-//        souzanTitleBG.setPadding(new Insets(10, 10, 10, 10));
-//        wafaaTitleBG.setPadding(new Insets(10, 10, 10, 10));
-//        hendrikTitleBG.setPadding(new Insets(10, 10, 10, 10));
-//        jannekeTitleBG.setPadding(new Insets(10, 10, 10, 10));
-//        nickTitleBG.setPadding(new Insets(10, 10, 10, 10));
-//        fredTitleBG.setPadding(new Insets(10, 10, 10, 10));
-
-//        souzanTitleBG.setStyle("-fx-background-color: #dae7f3;");
-//        wafaaTitleBG.setStyle("-fx-background-color: #dae7f3;");
-//        hendrikTitleBG.setStyle("-fx-background-color: #dae7f3;");
-//        jannekeTitleBG.setStyle("-fx-background-color: #dae7f3;");
-//        nickTitleBG.setStyle("-fx-background-color: #dae7f3;");
-//        fredTitleBG.setStyle("-fx-background-color: #dae7f3;");
-
-
-//        credMainCont.add(souzanTitleBG, 0, 0);
-//        credMainCont.add(wafaaTitleBG, 0, 1);
-//        credMainCont.add(jannekeTitleBG, 0, 2);
-//        credMainCont.add(nickTitleBG, 0, 3);
-//        credMainCont.add(hendrikTitleBG, 0, 4);
-//        credMainCont.add(fredTitleBG, 0, 5);
-
-//        creditsMainCont.getChildren().addAll(credTitleCont, credSubTitleCont, credMainCont, backCont);
-//        Scene creditScene = new Scene(creditsMainCont);
 
         Button back2 = new Button("بازگشت");
         HBox backCont2 = new HBox();
@@ -309,8 +221,6 @@ public class Main extends Application {
             primaryStage.setScene(setScene);
             back3.setOnAction(f-> primaryStage.setScene(scene));
         });
-
-//        new VBox();
 
         //changing to the board scene
         modeOneContainer.setPickOnBounds(true); // allows click on transparent areas

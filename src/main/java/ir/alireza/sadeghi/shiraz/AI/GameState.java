@@ -1,4 +1,4 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 import ir.alireza.sadeghi.shiraz.*;
 
@@ -79,7 +79,7 @@ public class GameState {
 			move.select(moveTo, boardState);
 			move.resetMove();
 			
-			valid = !BoardMethods.compareHashtables(boardState, old.boardState);
+			valid = !BoardMethods.compareHashTables(boardState, old.boardState);
 				
 			//scores old
 			point1 = old.point1;

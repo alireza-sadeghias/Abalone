@@ -1,12 +1,16 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 /*
  * Contains an alpha beta method.
  * Stores the best node (the move the current player does).
- */ 
+ */
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AlphaBeta{
-	
+
+	private final static Logger logger = LogManager.getLogger(AlphaBeta.class);
 	Node<GameState> node = null;
 
 	public AlphaBeta() { }
@@ -22,7 +26,7 @@ public class AlphaBeta{
 			
 			for (Node<GameState> node2 : node.children) {
 				value = Math.max(value, performAB(node2, depth-1, alpha, beta, false));
-				System.out.println("value " + value);
+				logger.trace("value " + value);
 				double oldAlpha = alpha;
 				alpha = Math.max(alpha, value);
 				

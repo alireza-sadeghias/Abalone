@@ -1,4 +1,4 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 public class ModeDetermination{
 
@@ -9,7 +9,7 @@ public class ModeDetermination{
 
     // all weigths should be positive, the function values f1..f8 have been instead altered according to heuristic observations
 
-    public static int Counter = 1;
+    public static int counter = 1;
 
     //  Structure of the weights
     // { Distance , Cohesion , Break , strength , Won , Lost , DistanceOpp , Danger }
@@ -29,10 +29,10 @@ public class ModeDetermination{
         } else if(Own > Opp){
             return weightMatrix_AI[2];
         } else {
-            if (f1 < 0.75 && Counter < 2)
+            if (f1 < 0.75 && counter < 2)
                 return weightMatrix_AI[0];
             else
-                Counter = 2;
+                counter = 2;
             return weightMatrix_AI[1];
         }
     }

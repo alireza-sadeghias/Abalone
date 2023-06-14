@@ -1,4 +1,4 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 /*
  * A basic tree data structure.

@@ -1,10 +1,11 @@
 package ir.alireza.sadeghi.shiraz;
 
-import java.util.Hashtable;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+
+import java.util.Hashtable;
 
 /*
  * Handles the marbles with which a game is played. 
@@ -59,12 +60,13 @@ public class Marble extends Ellipse{
 			
 	//make it clickable, so you can play the game
 	EventHandler<MouseEvent> EllipseOnMouseClicked =
-				new EventHandler<MouseEvent>() {
-					public void handle(MouseEvent t) {
-						if ((Move.playersTurn == 1 && !Move.player1AI) || (Move.playersTurn ==2 && !Move.player2AI) || (Move.playersTurn ==3 && !Move.player3AI)) {
-							GameData.move.select(locationKey, Board.hashBoard);							}
-						}
-					};
+			new EventHandler<>() {
+				public void handle(MouseEvent t) {
+					if ((Move.playersTurn == 1 && !Move.player1AI) || (Move.playersTurn == 2 && !Move.player2AI) || (Move.playersTurn == 3 && !Move.player3AI)) {
+						GameData.move.select(locationKey, Board.hashBoard);
+					}
+				}
+			};
 					
 	// make a copy of a marble, with a different reference
 	public Marble deepClone() {

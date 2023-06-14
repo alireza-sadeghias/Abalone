@@ -1,31 +1,34 @@
 package ir.alireza.sadeghi.shiraz;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 /*
  * Has methods which with you can:
- * -clone a hashboard
+ * -clone a hash board
  * -compare two boards
  * -get the marbles in one board from a certain player
  */
 
 public class BoardMethods {
 	public static ArrayList<String> hash = Board.hash;
-	
-	//copies a whole hashboard - depends on the one you get as input
+	private final static Logger logger = LogManager.getLogger(BoardMethods.class);
+	//copies a whole hash board - depends on the one you get as input
 	public static Hashtable<String, Hexagon> copyHashBoard(Hashtable<String, Hexagon> hex){
-		//System.out.println("enter copy method");
-		//System.out.println("hash size " + hash.size());
-		Hashtable<String, Hexagon> newBoard = new Hashtable<String, Hexagon>();
+		logger.traceEntry();
+		logger.trace("hash size " + hash.size());
+		Hashtable<String, Hexagon> newBoard = new Hashtable();
 		for(int i = 0; hash.size() > i; i++) {
 			newBoard.put(hash.get(i), hex.get(hash.get(i)).deepClone());
 		}
 		return newBoard;
 	}
 	
-	//compares two hashtables, if they contain the same marbles (from the same player), at the same spot, then it returns true
-	public static boolean compareHashtables(Hashtable<String, Hexagon> one, Hashtable<String, Hexagon> two) {		
+	//compares two hashTables, if they contain the same marbles (from the same player), at the same spot, then it returns true
+	public static boolean compareHashTables(Hashtable<String, Hexagon> one, Hashtable<String, Hexagon> two) {
 		for(int i = 0; i < hash.size(); i++) {
 			if(!one.get(hash.get(i)).empty && !two.get(hash.get(i)).empty) {
 				if (one.get(hash.get(i)).marble.playerNumber != two.get(hash.get(i)).marble.playerNumber) {
@@ -39,24 +42,24 @@ public class BoardMethods {
 		return true;
 	}
 	
-	//creates and returns an array list with all the marbles from a certain player
-	public static ArrayList<String> getMarblesPlayer(Hashtable<String, Hexagon> board, int playerNumber){
-		ArrayList<String> marbles = new ArrayList<>();
-		for (int i = 0; i < hash.size(); i++) {
-			if (!board.get(hash.get(i)).empty) {
-				if (board.get(hash.get(i)).marble.playerNumber == playerNumber) {
-					marbles.add(hash.get(i));
-				}
-			}
-		}
-		return marbles;
-	}
+// creates and returns an array list with all the marbles from a certain player
+//	public static ArrayList<String> getMarblesPlayer(Hashtable<String, Hexagon> board, int playerNumber){
+//		ArrayList<String> marbles = new ArrayList<>();
+//		for (int i = 0; i < hash.size(); i++) {
+//			if (!board.get(hash.get(i)).empty) {
+//				if (board.get(hash.get(i)).marble.playerNumber == playerNumber) {
+//					marbles.add(hash.get(i));
+//				}
+//			}
+//		}
+//		return marbles;
+//	}
 	
 	//repetition checker - return false if it is a repetition
 	public static boolean repetitionChecker(Hashtable<String, Hexagon> current) {
 		ArrayList<Hashtable<String, Hexagon>> tb = GameData.tb.getTB();
 		for (int i = 0; i < tb.size(); i++) {
-			if (compareHashtables(tb.get(i), current)) {
+			if (compareHashTables(tb.get(i), current)) {
 				return false;
 			}
 		}

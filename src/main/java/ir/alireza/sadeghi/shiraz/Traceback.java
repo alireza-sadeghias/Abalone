@@ -22,7 +22,7 @@ public class Traceback {
 	private final int tracebacksize = 30;
 	
 	
-	//add a hashboard to the traceback - this one is for boardstates
+	//add a hash board to the traceback - this one is for boardstates
 	public void add(Hashtable<String, Hexagon> board) {
 		if (current < tracebacksize - 1) {
 			current++;

@@ -1,9 +1,12 @@
 package ir.alireza.sadeghi.shiraz;
 
-import java.util.Hashtable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Hashtable;
 
 /*
  * Some general methods needed to play the game or to make gamestates.
@@ -14,7 +17,8 @@ import javafx.scene.paint.Color;
 
 public class GameMethods {
 
-	public static boolean AlertON = true;
+	private final static Logger logger =  LogManager.getLogger(GameMethods.class);
+	public static boolean alertON = true;
 
 	//changes a turn automatically
 	public static int changePlayer(int playersTurn) {
@@ -91,37 +95,37 @@ public class GameMethods {
 			if (GameData.numberPlayers == 3) {
 				GameGui.score_text3.setText(String.valueOf(Move.point3));
 			}
-			if(AlertON && !Move.automaticGame) {
+			if(alertON && !Move.automaticGame) {
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Game Over");
-				alert.setHeaderText("Winner is:");
+				alert.setTitle("بازی تمام شد!");
+				alert.setHeaderText("برنده:");
 				if (Move.point == 6) {
-					String s = "Game over, Player 1 won!";
+					String s = "بازیکن 1 برنده شد";
 					alert.setContentText(s);
 					alert.show();
-					GameGui.winner_text.setText("Game over, Player 1 won!");
+					GameGui.winner_text.setText(s);
 				}
 
 				if (Move.point2 == 6) {
 
-					String s = "Game over, Player 2 won!";
+					String s = "بازیکن دو برنده شد!";
 					alert.setContentText(s);
 					alert.show();
-					GameGui.winner_text.setText("Game over, Player 2 won!");
+					GameGui.winner_text.setText(s);
 				}
 
 				if (GameData.numberPlayers == 3) {
 					if (Move.point3 == 6) {
-						String s = "Game over, Player 3 won!";
+						String s = "بازیکن 3 برنده شد.!";
 						alert.setContentText(s);
 						alert.show();
-						GameGui.winner_text.setText("Game over, Player 3 won!");
+						GameGui.winner_text.setText(s);
 					}
 				}
 
 				alert.setOnCloseRequest(event ->
 				{
-					System.out.println("CLOSING");
+					logger.trace("CLOSING");
 					System.exit(0);
 				});
 			}

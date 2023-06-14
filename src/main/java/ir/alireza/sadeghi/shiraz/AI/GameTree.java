@@ -1,4 +1,4 @@
-package ir.alireza.sadeghi.shiraz.AI;
+package ir.alireza.sadeghi.shiraz.ai;
 
 import java.util.ArrayList;
 import java.util.List;
