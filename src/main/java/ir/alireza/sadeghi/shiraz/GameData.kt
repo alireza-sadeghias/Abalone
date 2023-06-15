@@ -1,13 +1,11 @@
-package ir.alireza.sadeghi.shiraz;/*
+package ir.alireza.sadeghi.shiraz
+
+/*
  * Manages some of the data needed to play the game.
- */
-
-public class GameData {
-
-	public static Move move = new Move();
-	public static int[] score = new int[3];
-	public static int numberPlayers = 2;
-	public static BoardRows rows;
-	public static Traceback tb = new Traceback();
-	
+ */   object GameData {
+    var move = Move()
+    var score = IntArray(3)
+    var numberPlayers = 2
+    lateinit var rows: BoardRows
+    var tb = Traceback()
 }
