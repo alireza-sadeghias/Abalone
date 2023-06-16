@@ -1,11 +1,9 @@
-package ir.alireza.sadeghi.shirazimport
+package ir.alireza.sadeghi.shiraz
 
-import ir.alireza.sadeghi.shiraz.*
 import ir.alireza.sadeghi.shiraz.ai.*
 import ir.alireza.sadeghi.shiraz.ai.weight.optimisation.GeneticLoop
 import javafx.application.Application
 import javafx.application.Platform
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.control.Button
@@ -33,7 +31,7 @@ open class GameGui : Application() {
     override fun start(stage: Stage) {
         try {
             val buttonAI = Button("برای اجرای الگوریتم ژنتیک مرا دوبار فشار دهید")
-            buttonAI.onAction = EventHandler<ActionEvent> { e: ActionEvent? ->
+            buttonAI.onAction = EventHandler {
 
                 //need to create this
                 if (Move.initialBoard == null || Move.mcts && Move.initialBoard == null) {
@@ -42,59 +40,58 @@ open class GameGui : Application() {
                     Move.initial =
                         GameState(Move.initialBoard as Hashtable<String?, Hexagon?>?, GameMethods.changeBack(Move.playersTurn))
                     Move.monteCarlo = MonteCarlo(Node(Move.initial))
-                } else if (Move.greedy || Move.alphabeta) {
+                } else if (Move.greedy || Move.alphaBeta) {
                     EvaluationFunction.AITestingON = true
                     GeneticLoop.start()
                 }
             }
-            val winner_label = Label("برنده:\t")
-            val MAX_FONT_SIZE = 30.0 // define max font size you need
-            winner_label.font = Font(MAX_FONT_SIZE)
-            winner_text.setFont(Font(MAX_FONT_SIZE))
-            player_text.setFont(Font(MAX_FONT_SIZE))
-            score_text1.setFont(Font(MAX_FONT_SIZE))
-            score_text2.setFont(Font(MAX_FONT_SIZE))
-            score_text3.setFont(Font(MAX_FONT_SIZE))
-            val winner = HBox(winner_label, winner_text)
-            val player_label = Label("نوبت بازیکن:\t")
-            player_label.font = Font(MAX_FONT_SIZE)
-            val playerBox = HBox(player_label, player_text)
-            val score_label1 = Label("امتیاز بازیکن 1 :\t")
-            score_label1.font = Font(MAX_FONT_SIZE)
+            val winnerLabel = Label("برنده:\t")
+            val maxFontSize = 30.0 // define max font size you need
+            winnerLabel.font = Font(maxFontSize)
+            winnerText.font = Font(maxFontSize)
+            player_text.font = Font(maxFontSize)
+            score_text1.font = Font(maxFontSize)
+            score_text2.font = Font(maxFontSize)
+            score_text3.font = Font(maxFontSize)
+            val winner = HBox(winnerLabel, winnerText)
+            val playerLabel = Label("نوبت بازیکن:\t")
+            playerLabel.font = Font(maxFontSize)
+            val playerBox = HBox(playerLabel, player_text)
+            val scoreLabel1 = Label("امتیاز بازیکن 1 :\t")
+            scoreLabel1.font = Font(maxFontSize)
             val tex = Text("/6")
-            tex.font = Font(MAX_FONT_SIZE)
-            val score = HBox(score_label1, score_text1, tex)
-            val score_label2 = Label("امتیاز بازیکن 2 :\t")
-            score_label2.font = Font(MAX_FONT_SIZE)
+            tex.font = Font(maxFontSize)
+            val score = HBox(scoreLabel1, score_text1, tex)
+            val scoreLabel2 = Label("امتیاز بازیکن 2 :\t")
+            scoreLabel2.font = Font(maxFontSize)
             val tex2 = Text("/6")
-            tex2.font = Font(MAX_FONT_SIZE)
-            val score2 = HBox(score_label2, score_text2, tex2)
-            val score_label3 = Label("امتیاز بازیکن 3 :\t")
-            score_label3.font = Font(MAX_FONT_SIZE)
+            tex2.font = Font(maxFontSize)
+            val score2 = HBox(scoreLabel2, score_text2, tex2)
+            val scoreLabel3 = Label("امتیاز بازیکن 3 :\t")
+            scoreLabel3.font = Font(maxFontSize)
             val tex3 = Text("/6")
-            tex3.font = Font(MAX_FONT_SIZE)
-            val score3 = HBox(score_label3, score_text3, tex3)
-            val SubScene = GridPane()
-            val hbox3 = HBox()
+            tex3.font = Font(maxFontSize)
+            val score3 = HBox(scoreLabel3, score_text3, tex3)
+            val subScene = GridPane()
+            val hBox3 = HBox()
             val reset = Button("ریست")
-            //hbox3.getChildren().add(reset);
             if (GameData.numberPlayers == 2) {
-                GridPane.setRowIndex(hbox3, 5)
+                GridPane.setRowIndex(hBox3, 5)
                 GridPane.setRowIndex(winner, 4)
                 GridPane.setRowIndex(playerBox, 1)
                 GridPane.setRowIndex(score, 2)
                 GridPane.setRowIndex(score2, 3)
-                SubScene.children.addAll(hbox3, winner, playerBox, score, score2) //add reset for the reset button
+                subScene.children.addAll(hBox3, winner, playerBox, score, score2) //add reset for the reset button
             }
             if (GameData.numberPlayers == 3) {
-                GridPane.setRowIndex(hbox3, 6)
+                GridPane.setRowIndex(hBox3, 6)
                 GridPane.setRowIndex(winner, 5)
                 GridPane.setRowIndex(playerBox, 1)
                 GridPane.setRowIndex(score, 2)
                 GridPane.setRowIndex(score2, 3)
                 GridPane.setRowIndex(score3, 4)
-                SubScene.children.addAll(
-                    hbox3,
+                subScene.children.addAll(
+                    hBox3,
                     winner,
                     playerBox,
                     score,
@@ -109,13 +106,13 @@ open class GameGui : Application() {
                     val placeholder2 = Label()
                     GridPane.setRowIndex(buttonAI, 7)
                     GridPane.setRowIndex(placeholder2, 8)
-                    SubScene.children.addAll(placeholder, buttonAI, placeholder2)
-                    val Label3 = Label("یا یک بازی دیگر با هوش مصنوعی!")
-                    GridPane.setRowIndex(Label3, 9)
-                    val Label4 = Label("بازیکن 1")
-                    GridPane.setRowIndex(Label4, 10)
-                    val Label5 = Label("بازیکن 2")
-                    GridPane.setRowIndex(Label5, 12)
+                    subScene.children.addAll(placeholder, buttonAI, placeholder2)
+                    val label3 = Label("یا یک بازی دیگر با هوش مصنوعی!")
+                    GridPane.setRowIndex(label3, 9)
+                    val label4 = Label("بازیکن 1")
+                    GridPane.setRowIndex(label4, 10)
+                    val label5 = Label("بازیکن 2")
+                    GridPane.setRowIndex(label5, 12)
                     val choiceBox: ChoiceBox<String> = ChoiceBox()
                     choiceBox.items.add("Neutral")
                     choiceBox.items.add("Aggressive")
@@ -128,7 +125,7 @@ open class GameGui : Application() {
                     choiceBox2.items.add("Final")
                     GridPane.setRowIndex(choiceBox, 11)
                     GridPane.setRowIndex(choiceBox2, 13)
-                    SubScene.children.addAll(Label3, Label4, choiceBox, Label5, choiceBox2)
+                    subScene.children.addAll(label3, label4, choiceBox, label5, choiceBox2)
                     val startAI = Button("شروع بازی هوش مصنوعی")
                     startAI.onAction = EventHandler {
                         if (choiceBox.value != null && choiceBox2.value != null) {
@@ -142,22 +139,22 @@ open class GameGui : Application() {
                         }
                     }
                     GridPane.setRowIndex(startAI, 14)
-                    SubScene.children.add(startAI)
+                    subScene.children.add(startAI)
                 } else {
                     val placeholder = Label()
                     GridPane.setRowIndex(placeholder, 6)
                     val placeholder2 = Label()
                     GridPane.setRowIndex(buttonAI, 7)
                     GridPane.setRowIndex(placeholder2, 8)
-                    SubScene.children.addAll(placeholder, buttonAI, placeholder2)
-                    val Label3 = Label("یا یک بازی دیگر.")
-                    GridPane.setRowIndex(Label3, 9)
-                    val Label4 = Label("بازیکن 1")
-                    GridPane.setRowIndex(Label4, 10)
-                    val Label5 = Label("بازیکن 2")
-                    GridPane.setRowIndex(Label5, 12)
-                    val Label6 = Label("بازیکن 3")
-                    GridPane.setRowIndex(Label6, 14)
+                    subScene.children.addAll(placeholder, buttonAI, placeholder2)
+                    val label3 = Label("یا یک بازی دیگر.")
+                    GridPane.setRowIndex(label3, 9)
+                    val label4 = Label("بازیکن 1")
+                    GridPane.setRowIndex(label4, 10)
+                    val label5 = Label("بازیکن 2")
+                    GridPane.setRowIndex(label5, 12)
+                    val label6 = Label("بازیکن 3")
+                    GridPane.setRowIndex(label6, 14)
                     val choiceBox: ChoiceBox<String> = ChoiceBox()
                     choiceBox.items.add("Neutral")
                     choiceBox.items.add("Aggressive")
@@ -176,9 +173,9 @@ open class GameGui : Application() {
                     GridPane.setRowIndex(choiceBox, 11)
                     GridPane.setRowIndex(choiceBox2, 13)
                     GridPane.setRowIndex(choiceBox3, 15)
-                    SubScene.children.addAll(Label3, Label4, choiceBox, Label5, choiceBox2, Label6, choiceBox3)
+                    subScene.children.addAll(label3, label4, choiceBox, label5, choiceBox2, label6, choiceBox3)
                     val startAI = Button("بازی با هوش مصنوعی")
-                    startAI.onAction = EventHandler<ActionEvent> { e: ActionEvent? ->
+                    startAI.onAction = EventHandler {
                         if (choiceBox.value != null && choiceBox2.value != null && choiceBox3.value != null) {
                             EvaluationFunction.AITestingON = false
                             EvaluationFunction.Name1 = choiceBox.value as String
@@ -191,10 +188,10 @@ open class GameGui : Application() {
                         }
                     }
                     GridPane.setRowIndex(startAI, 16)
-                    SubScene.children.add(startAI)
+                    subScene.children.add(startAI)
                 }
             }
-            player_text.setText("1")
+            player_text.text = "1"
             logger.trace(stage.width.toString() + " " + stage.height)
             board = Board(
                 stage.width / 2,
@@ -202,11 +199,11 @@ open class GameGui : Application() {
             )
             //ir.alireza.sadeghi.shiraz.MarbleStorage m = new ir.alireza.sadeghi.shiraz.MarbleStorage();
             Board.boardMarbles = MarbleStorage()
-            val scene: Scene = newScene(Board.boardMarbles!!, board!!, SubScene)
+            val scene: Scene = newScene(Board.boardMarbles!!, board!!, subScene)
             stage.title = "بازی ابالون"
             stage.scene = scene
             stage.show()
-            reset.onAction = EventHandler<ActionEvent?> {
+            reset.onAction = EventHandler {
                 stage.close()
                 Platform.runLater {
                     try {
@@ -215,9 +212,9 @@ open class GameGui : Application() {
                         e.printStackTrace()
                     }
                 }
-                stage.scene = newScene(Board.boardMarbles!!, board!!, SubScene)
+                stage.scene = newScene(Board.boardMarbles!!, board!!, subScene)
             }
-            scene.addEventFilter<KeyEvent>(KeyEvent.KEY_PRESSED) { e: KeyEvent ->
+            scene.addEventFilter(KeyEvent.KEY_PRESSED) { e: KeyEvent ->
                 if (e.code == KeyCode.DOWN) {
                     Move.checkAI(Board.hashBoard)
                     logger.trace("--did ai move and deleted tree--")
@@ -228,7 +225,7 @@ open class GameGui : Application() {
         }
     }
 
-    fun setAIAI(x: Boolean) {
+    fun setAI(x: Boolean) {
         isAi = x
     }
 
@@ -237,7 +234,7 @@ open class GameGui : Application() {
         lateinit var MainScene: BorderPane
         lateinit var Screen: Pane
         lateinit var pp: AnchorPane
-        var winner_text = Text("0")
+        var winnerText = Text("0")
         var player_text = Text("0")
         var score_text1 = Text("0")
         var score_text2 = Text("0")

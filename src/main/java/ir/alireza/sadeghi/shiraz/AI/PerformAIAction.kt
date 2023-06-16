@@ -11,8 +11,7 @@ object PerformAIAction {
     //get the best node and use this action
     fun perform(greedy: Boolean, alphaBeta: Boolean, board: Hashtable<String?, Hexagon?>?) {
         //build the tree and perform search - make a new node a root node?
-        var needed: Node<GameState?>? = null
-        needed = if (greedy) {
+        val needed: Node<GameState?>? = if (greedy) {
             choose2()
         } else if (alphaBeta) {
             choose()
@@ -38,7 +37,7 @@ object PerformAIAction {
         }
     }
 
-    fun choose2(): Node<GameState?>? {
+    private fun choose2(): Node<GameState?>? {
         var bestMove: Node<GameState?>? = null
         var maxEval = Double.NEGATIVE_INFINITY
         for (i in tree?.root?.children?.indices!!) {

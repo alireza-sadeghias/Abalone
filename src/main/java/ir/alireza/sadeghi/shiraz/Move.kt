@@ -3,14 +3,12 @@ package ir.alireza.sadeghi.shiraz
 import ir.alireza.sadeghi.shiraz.ai.GameState
 import ir.alireza.sadeghi.shiraz.ai.MonteCarlo
 import ir.alireza.sadeghi.shiraz.ai.PerformAIAction
-import ir.alireza.sadeghi.shirazimport.*
 import javafx.scene.paint.Color
 import java.util.*
 
 
-//trying to clean this one up a bit
 /*
- * Whenever a move on the board or in a gamestate needs to be performed, this class's methods are used.
+ * Whenever a move on the board or in a game state needs to be performed, this class's methods are used.
  */
 class Move {
     init {
@@ -118,19 +116,8 @@ class Move {
         }
     }
 
-//    fun resetSelection(code: String, board: Hashtable<String?, Hexagon>) {
-//        selectedMarbles.clear()
-//        selectedMarbles.add(code)
-//        GameMethods.coloursBackToNormal(board)
-//        first = code
-//        second = null
-//        third = null
-//        board[code]!!.marble?.fill = Color.PURPLE
-//        selected = false
-//    }
-
     fun move(board: Hashtable<String?, Hexagon>) {
-        //check if valid -> if not, reset, else: perform movement, change player, resetmove
+        //check if valid -> if not, reset, else: perform movement, change player, resetMove
         if (nrSelected == 1) {
             if (validMoveOne(board, first, moveTo)) {
                 addToTb(board)
@@ -176,13 +163,13 @@ class Move {
         if (!adding && board == Board.hashBoard || automaticGame && !ai) {
             GameData.tb.add(board as Hashtable<String?, Hexagon?>?)
             if (first != null) {
-                one = Board.hashBoard[first]!!.marble as Marble
+                one = Board.hashBoard[first]!!.marble
             }
             if (second != null) {
-                two = Board.hashBoard[second]!!.marble as Marble
+                two = Board.hashBoard[second]!!.marble
             }
             if (third != null) {
-                three = Board.hashBoard[third]!!.marble as Marble
+                three = Board.hashBoard[third]!!.marble
             }
         }
     }
@@ -206,7 +193,7 @@ class Move {
                 tbOne ,
                 tbTwo ,
                 tbThree ,
-                GameData.rows.direction(first as String, moveTo as String)
+                GameData.rows.direction(first, moveTo)
             )
             one = null
             two = null
@@ -238,12 +225,12 @@ class Move {
     }
 
     //moves one single marble
-    fun performMovementOne(board: Hashtable<String?, Hexagon>) {
+    private fun performMovementOne(board: Hashtable<String?, Hexagon>) {
         moveMarble(first, moveTo, board)
     }
 
     //moves two marbles, either sideways or in the same direction
-    fun performMovementTwo(board: Hashtable<String?, Hexagon>) {
+    private fun performMovementTwo(board: Hashtable<String?, Hexagon>) {
         //if it is moves sideways, then it can never push another marble
         if (GameData.rows.sideways(first as String, second as String, moveTo as String)) {
             moveSideways(board)
@@ -298,8 +285,8 @@ class Move {
         }
     }
 
-    //moves marbles sideways (either two or three)
-    fun moveSideways(board: Hashtable<String?, Hexagon>) {
+    //Move marbles sideways (either two or three)
+    private fun moveSideways(board: Hashtable<String?, Hexagon>) {
         val direction = GameData.rows.direction(first as String, moveTo as String)
         val letterFirst: Char = first!![0]
         val letterSecond: Char = second!![0]
@@ -328,24 +315,31 @@ class Move {
         var keyOne: String? = null
         var keyTwo: String? = null
         var keyThree: String? = null
-        if (direction == 1) {
-            keyOne = letterFirstSt + (numberOneMinus)
-            keyTwo = letterSecondSt + (numberTwoMinus)
-        } else if (direction == (2)) {
-            keyOne = letterOnePlusSt + (numberOne)
-            keyTwo = letterTwoPlusSt + numberTwo
-        } else if (direction == (3)) {
-            keyOne = letterOnePlusSt + (numberOnePlus)
-            keyTwo = letterTwoPlusSt + (numberTwoPlus)
-        } else if (direction == (4)) {
-            keyOne = letterFirstSt + (numberOnePlus)
-            keyTwo = letterSecondSt + (numberTwoPlus)
-        } else if (direction == (5)) {
-            keyOne = letterOneMinusSt + (numberOne)
-            keyTwo = letterTwoMinusSt + numberTwo
-        } else if (direction == (6)) {
-            keyOne = letterOneMinusSt + (numberOneMinus)
-            keyTwo = letterTwoMinusSt + (numberTwoMinus)
+        when (direction) {
+            1 -> {
+                keyOne = letterFirstSt + (numberOneMinus)
+                keyTwo = letterSecondSt + (numberTwoMinus)
+            }
+            (2) -> {
+                keyOne = letterOnePlusSt + (numberOne)
+                keyTwo = letterTwoPlusSt + numberTwo
+            }
+            (3) -> {
+                keyOne = letterOnePlusSt + (numberOnePlus)
+                keyTwo = letterTwoPlusSt + (numberTwoPlus)
+            }
+            (4) -> {
+                keyOne = letterFirstSt + (numberOnePlus)
+                keyTwo = letterSecondSt + (numberTwoPlus)
+            }
+            (5) -> {
+                keyOne = letterOneMinusSt + (numberOne)
+                keyTwo = letterTwoMinusSt + numberTwo
+            }
+            (6) -> {
+                keyOne = letterOneMinusSt + (numberOneMinus)
+                keyTwo = letterTwoMinusSt + (numberTwoMinus)
+            }
         }
         if (third != null) {
             val letterThird: Char = third!![0]
@@ -383,32 +377,40 @@ class Move {
     }
 
     //removes a marble from the board - used in push methods
-    fun removeMarble(removing: Marble?, board: Hashtable<String?, Hexagon>) {
+    private fun removeMarble(removing: Marble?, board: Hashtable<String?, Hexagon>) {
         if (automaticGame && !ai) {
             (
-                if (playersTurn == 1) {
-                    point++
-                } else if (playersTurn == 2) {
-                    point2++
-                } else {
-                    point3++
-                }
+                    when (playersTurn) {
+                        1 -> {
+                            point++
+                        }
+                        2 -> {
+                            point2++
+                        }
+                        else -> {
+                            point3++
+                        }
+                    }
             )
         }
         if (board == Board.hashBoard && !adding) {
             (GameData.score[playersTurn - 1]++)
-            GameGui.MainScene.getChildren().remove(removing)
+            GameGui.MainScene.children.remove(removing)
             MarbleStorage.storage.remove(removing)
-            GameGui.Screen.getChildren().remove(removing)
-            GameGui.pp.getChildren().remove(removing)
+            GameGui.Screen.children.remove(removing)
+            GameGui.pp.children.remove(removing)
             (
-                if (playersTurn == 1) {
-                    point++
-                } else if (playersTurn == 2) {
-                    point2++
-                } else {
-                    point3++
-                }
+                    when (playersTurn) {
+                        1 -> {
+                            point++
+                        }
+                        2 -> {
+                            point2++
+                        }
+                        else -> {
+                            point3++
+                        }
+                    }
             )
         } else {
             pushed = true
@@ -416,7 +418,7 @@ class Move {
     }
 
     //push one marble
-    fun doPushOne(board: Hashtable<String?, Hexagon>) {
+    private fun doPushOne(board: Hashtable<String?, Hexagon>) {
         if (third == null) {
             val removing = board[moveTo]!!.marble
             board[moveTo]!!.setEmpty()
@@ -455,7 +457,7 @@ class Move {
     }
 
     //push two marbles
-    fun doPushTwo(board: Hashtable<String?, Hexagon>) {
+    private fun doPushTwo(board: Hashtable<String?, Hexagon>) {
         val moving = board[third]!!.marble
         val removing = board[moveTo]!!.marble
         board[third]!!.setEmpty()
@@ -483,7 +485,7 @@ class Move {
     }
 
     companion object {
-        //first, second, and third marble code that need to be moved (the hexagon in the hashboard contains the marbles of the same code- which can be removed and added quickly)
+        //first, second, and third marble code that need to be moved (the hexagon in the hash board contains the marbles of the same code which can be removed and added quickly)
         var first: String? = null
         var second: String? = null
         var third: String? = null
@@ -506,10 +508,10 @@ class Move {
         //keep track of the player that needs to move a marble
         var playersTurn = 1
 
-        //if THIS MOVE is ai or not
+        //if THIS MOVE is AI or not
         var ai = false
 
-        //which players are ai players
+        //which players are AI players
         var player1AI = false
         var player2AI = false
         var player3AI = false
@@ -528,7 +530,7 @@ class Move {
         var initial: GameState? = null
         var monteCarlo: MonteCarlo? = null
         private const val repOff = true
-        var alphabeta = false
+        var alphaBeta = false
         var mcts = false
         var automaticGame = false
         var automaticGameEnd = false
@@ -537,7 +539,7 @@ class Move {
 //        var need = true
         var PvC = false
 
-        //automatically perform the move for the ai -> create tree, search and perform the move!!
+        //automatically perform the move for the AI -> create tree, search and perform the move!!
         fun checkAI(board: Hashtable<String?, Hexagon?>?) {
             if (playersTurn == 1  && player1AI ||  playersTurn == 2 && player2AI || playersTurn == 3 && player3AI) {
                 performAI(board)
@@ -545,18 +547,18 @@ class Move {
         }
 
         //checks whether it needs to be greedy and then performs the move
-        fun performAI(board: Hashtable<String?, Hexagon?>?) {
+        private fun performAI(board: Hashtable<String?, Hexagon?>?) {
             val state = GameState(BoardMethods.copyHashBoard(board) as Hashtable<String?, Hexagon?>?,
                 GameMethods.changeBack(playersTurn)
             )
             if (greedy || GameData.numberPlayers == 3 || playersTurn == 1 && greedyPlayer1 || playersTurn == 2 && greedyPlayer2) {
                 PerformAIAction.createGameTree(state, 1)
-                PerformAIAction.perform(true, false, board)
-            } else if (alphabeta) {
+                PerformAIAction.perform(greedy = true, alphaBeta = false, board = board)
+            } else if (alphaBeta) {
                 PerformAIAction.createGameTree(state, 2)
-                PerformAIAction.perform(false, true, board)
+                PerformAIAction.perform(greedy = false, alphaBeta = true, board = board)
             } else {
-                PerformAIAction.perform(false, false, board)
+                PerformAIAction.perform(greedy = false, alphaBeta = false, board = board)
             }
         }
 
@@ -690,7 +692,7 @@ class Move {
                             .adjacent(moveTo) && board[second]!!.adjacent(third)
                     ) {
                         val newHex = GameData.rows.adjacentDirection(moveTo, GameData.rows.direction(first, moveTo))
-                        val newnewHex =
+                        val newNewHex =
                             GameData.rows.adjacentDirection(newHex, GameData.rows.direction(first, moveTo))
                         if (GameData.rows.sideways(first, second, moveTo)) {
                             return if (GameData.rows.threeFree(first, second, third, moveTo, board)) {
@@ -720,8 +722,8 @@ class Move {
                                 if (board[newHex]!!.empty) {
                                     return true
                                 } else if (board[newHex]!!.marble?.playerNumber != playersTurn) {
-                                    if (board.containsKey(newnewHex)) {
-                                        if (board[newnewHex]!!.empty) {
+                                    if (board.containsKey(newNewHex)) {
+                                        if (board[newNewHex]!!.empty) {
                                             return true
                                         }
                                     } else {

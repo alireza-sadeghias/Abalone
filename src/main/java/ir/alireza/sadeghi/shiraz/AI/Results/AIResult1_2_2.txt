@@ -1,4 +1,4 @@
 AInumber: 2
 Gen: 1
-Moves: 82
-Marbles: -1
+Moves: 222
+Marbles: 0

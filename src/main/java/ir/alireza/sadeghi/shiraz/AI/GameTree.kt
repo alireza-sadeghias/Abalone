@@ -1,21 +1,16 @@
 package ir.alireza.sadeghi.shiraz.ai
 
 class GameTree(root: Node<GameState?>?) {
-    var gameTree: Tree<GameState?>
+    private var gameTree: Tree<GameState?>
 
     init {
         gameTree = Tree(root)
     }
-
-//    fun setNewRoot(newRoot: Node<GameState?>) {
-//        DeleteLayers.deleteEverythingAbove(newRoot, gameTree)
-//    }
-
     fun buildFullTree(layers: Int) {
         //builds the entire tree we need (can be a LOT of nodes)
-        gameTree?.root?.children?.clear()
+        gameTree.root?.children?.clear()
         var expanding: MutableList<Node<GameState?>?> = ArrayList()
-        expanding.add(gameTree?.root)
+        expanding.add(gameTree.root)
 
         //create layers
         for (i in 1 until layers + 1) {

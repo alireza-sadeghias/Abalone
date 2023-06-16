@@ -1,0 +1,4 @@
+AInumber: 1
+Gen: 5
+Moves: 102
+Marbles: 3

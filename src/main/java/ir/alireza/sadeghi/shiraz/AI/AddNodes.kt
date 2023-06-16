@@ -1,16 +1,12 @@
 package ir.alireza.sadeghi.shiraz.ai
 
-import ir.alireza.sadeghi.shiraz.Board
-import ir.alireza.sadeghi.shiraz.GameData
-import ir.alireza.sadeghi.shiraz.Hexagon
-import ir.alireza.sadeghi.shiraz.Move
-import ir.alireza.sadeghi.shirazimport.GameMethods
+import ir.alireza.sadeghi.shiraz.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 /*
  * Can add layers to our game tree.
- * There is a method in which you can put in the node and it will add every possible node to it.
+ * There is a method in which you can put in the node, and it will add every possible node to it.
  */
 object AddNodes {
     var nodeNR = 0

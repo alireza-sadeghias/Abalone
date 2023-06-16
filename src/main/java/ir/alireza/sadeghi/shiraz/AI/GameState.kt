@@ -1,7 +1,6 @@
 package ir.alireza.sadeghi.shiraz.ai
 
 import ir.alireza.sadeghi.shiraz.*
-import ir.alireza.sadeghi.shirazimport.GameMethods
 import java.util.*
 
 class GameState {

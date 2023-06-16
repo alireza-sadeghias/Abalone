@@ -114,7 +114,8 @@ class EvaluationFunction(gameState: GameState) {
         w8 = weightArray[7]
     }
 
-    /*assigns a numeric value to each GameState in the Tree, based on the linear equation
+    /*
+        assigns a numeric value to each GameState in the Tree, based on the linear equation
     */
     fun evaluate(): Double {
         return w1 * f1 + w2 * f2 + w3 * f3 + w4 * f4 + w5 * f5 + w6 * f6 + w7 * f7 + w8 * f8

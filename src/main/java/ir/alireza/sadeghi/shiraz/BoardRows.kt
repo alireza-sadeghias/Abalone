@@ -296,14 +296,14 @@ class BoardRows {
     }
 
     //returns the number which is the direction in which two adjacent hexagons are
-    fun direction(first: String, moveTo: String): Int {
+    fun direction(first: String?, moveTo: String?): Int {
         for (i in horizontal.indices) {
             if (horizontal[i].contains(first) && horizontal[i].contains(moveTo)) {
-                val numberFirst = first.substring(1)
-                val numberMoveTo = moveTo.substring(1)
-                val numberOne = numberFirst.toInt()
-                val numberTwo = numberMoveTo.toInt()
-                return if (numberOne > numberTwo) {
+                val numberFirst = first?.substring(1)
+                val numberMoveTo = moveTo?.substring(1)
+                val numberOne = numberFirst?.toInt()
+                val numberTwo = numberMoveTo?.toInt()
+                return if (numberOne!! > numberTwo!!) {
                     1
                 } else {
                     4
@@ -312,9 +312,9 @@ class BoardRows {
         }
         for (i in topLeft.indices) {
             if (topLeft[i].contains(first) && topLeft[i].contains(moveTo)) {
-                val letterFirst = first[0]
-                val letterMoveTo = moveTo[0]
-                return if (letterFirst > letterMoveTo) {
+                val letterFirst = first?.get(0)
+                val letterMoveTo = moveTo?.get(0)
+                return if (letterFirst!! > letterMoveTo!!) {
                     5
                 } else {
                     2
@@ -323,11 +323,11 @@ class BoardRows {
         }
         for (i in topRight.indices) {
             if (topRight[i].contains(first) && topRight[i].contains(moveTo)) {
-                val numberFirst = first.substring(1)
-                val numberMoveTo = moveTo.substring(1)
-                val numberOne = numberFirst.toInt()
-                val numberTwo = numberMoveTo.toInt()
-                return if (numberOne > numberTwo) {
+                val numberFirst = first?.substring(1)
+                val numberMoveTo = moveTo?.substring(1)
+                val numberOne = numberFirst?.toInt()
+                val numberTwo = numberMoveTo?.toInt()
+                return if (numberOne!! > numberTwo!!) {
                     6
                 } else {
                     3

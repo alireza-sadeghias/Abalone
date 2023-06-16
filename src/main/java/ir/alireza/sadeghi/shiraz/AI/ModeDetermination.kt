@@ -12,7 +12,7 @@ class ModeDetermination(  //  Structure of the weights
         } else if (Own > Opp) {
             weightMatrix_AI[2]
         } else {
-            if (f1 < 0.75 && ModeDetermination.Companion.counter < 2) return weightMatrix_AI[0] else ModeDetermination.Companion.counter =
+            if (f1 < 0.75 && counter < 2) return weightMatrix_AI[0] else counter =
                 2
             weightMatrix_AI[1]
         }
@@ -23,7 +23,7 @@ class ModeDetermination(  //  Structure of the weights
      the mapping into a specific mode is solved there by delimiting it by the center and cohesion strategies, the value of the weights in the evalFunction
      is determined by the mode in a static value association
     */
-        // all weigths should be positive, the function values f1..f8 have been instead altered according to heuristic observations
+        // all weights should be positive, the function values f1 til f8 have been instead altered according to heuristic observations
         var counter = 1
     }
 }

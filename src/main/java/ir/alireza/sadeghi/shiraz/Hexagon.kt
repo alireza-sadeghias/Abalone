@@ -12,8 +12,8 @@ class Hexagon : Polygon {
     var centerX = 0.0
     var centerY = 0.0
     var empty = true
-    var neighbours = ArrayList<String>()
-    var code: String? = null
+    private var neighbours = ArrayList<String>()
+    private var code: String? = null
     var marble: Marble? = null
 
     internal constructor() {
@@ -91,7 +91,7 @@ class Hexagon : Polygon {
                 }
                 if (i == 2 && j > 0) {
                     tempNumber = numberCode - 1 + j
-                    code = Character.toString(tempLetter) + tempNumber.toString()
+                    code = tempLetter.toString() + tempNumber.toString()
                     if (Board.hashBoard.containsKey(code)) {
                         neighbours.add(code)
                     }
@@ -100,7 +100,7 @@ class Hexagon : Polygon {
         }
     }
 
-    //deep clone this hexagon, including the marble inside of it - also the whole neighbours list (as it is the same for hexagons with the same code)
+    //deep clone this hexagon, including the marble inside it - also the whole neighbours list (as it is the same for hexagons with the same code)
     fun deepClone(): Hexagon {
         val clone = Hexagon()
         for (i in points.indices) {
@@ -113,11 +113,11 @@ class Hexagon : Polygon {
         if (!clone.empty) {
             clone.marble = marble!!.deepClone()
         }
-        val neighbourcopy = ArrayList<String>()
+        val neighbourCopy = ArrayList<String>()
         for (i in neighbours.indices) {
-            neighbourcopy.add(neighbours[i])
+            neighbourCopy.add(neighbours[i])
         }
-        clone.neighbours = neighbourcopy
+        clone.neighbours = neighbourCopy
         return clone
     }
 

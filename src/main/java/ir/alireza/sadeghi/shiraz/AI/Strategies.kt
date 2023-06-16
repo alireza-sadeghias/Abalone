@@ -9,7 +9,7 @@ import kotlin.math.sqrt
 class Strategies(private val gameState: GameState?) {
     /* class contains methods that define each strategy, like moving to the center etc.
      */
-    //not covered here is the possibility of drawing from a database of openings, this would stronlgy mitigate the importance of the closingDistance strategy
+    //not covered here is the possibility of drawing from a database of openings, this would strongly mitigate the importance of the closingDistance strategy
     private val player = ArrayList<String>()
     private val opponent = ArrayList<String>()
     private val killMoves = ArrayList<String>()
@@ -23,7 +23,7 @@ class Strategies(private val gameState: GameState?) {
         }
         val boardState = gameState.boardState
         for (i in 0 until boardState!!.size) {
-            if (!boardState!![Board.hash[i]]!!.empty) {
+            if (!boardState[Board.hash[i]]!!.empty) {
                 if (gameState.evaluateFrom == boardState[Board.hash[i]]!!.marble?.playerNumber) {
                     player.add(Board.hash[i])
                 } else {
@@ -36,9 +36,9 @@ class Strategies(private val gameState: GameState?) {
     fun closingDistance(boardState: GameState): Double {
         var playerDisAv = 0.0
         for (i in player.indices) {
-            playerDisAv += Math.sqrt(
-                Math.pow(boardState.boardState!![player[i]]!!.centerX - centerX, 2.0) + Math.pow(
-                    boardState.boardState!![player[i]]!!.centerY - centerY, 2.0
+            playerDisAv += sqrt(
+                (boardState.boardState!![player[i]]!!.centerX - centerX).pow(2.0) + (boardState.boardState!![player[i]]!!.centerY - centerY).pow(
+                    2.0
                 )
             )
 
@@ -57,7 +57,7 @@ class Strategies(private val gameState: GameState?) {
         for (i in player.indices) {
             for (j in 1 until player.size) {
                 if (i != j) {
-                    if (Math.abs(player[i][0].code - player[j][0].code) < 2 && abs(player[i][1].code - player[j][1].code) < 2) {
+                    if (abs(player[i][0].code - player[j][0].code) < 2 && abs(player[i][1].code - player[j][1].code) < 2) {
                         cohesion++
                     }
                 }
@@ -73,7 +73,7 @@ class Strategies(private val gameState: GameState?) {
         var groupBreaks = 0.0
         for (i in player.indices) {
             for (j in opponent.indices) {
-                if (Math.abs(player[i][0].code - opponent[j][0].code) < 2 && abs(player[i][1].code - opponent[j][1].code) < 2 && player[i][0].code - opponent[j][0].code + player[i][1].code - opponent[j][1].code != 0) {
+                if (abs(player[i][0].code - opponent[j][0].code) < 2 && abs(player[i][1].code - opponent[j][1].code) < 2 && player[i][0].code - opponent[j][0].code + player[i][1].code - opponent[j][1].code != 0) {
                     a@ for (k in opponent.indices) {
                         if (k != j && player[i][0].code - opponent[k][0].code == -(player[i][0].code - opponent[j][0].code) && player[i][1].code - opponent[k][1].code == -(player[i][1].code - opponent[j][1].code)) {
                             groupBreaks++
@@ -87,13 +87,13 @@ class Strategies(private val gameState: GameState?) {
     }
 
     fun strengthenGroup(): Double {
-        /* Determinates how many possibilities the AI has to push the Opponent.
+        /* Determinate how many possibilities the AI has to push the Opponent.
          */
-        var groupStrengh = 0.0
+        var groupStrength = 0.0
         for (i in player.indices) {
             for (j in 1 until player.size) {
                 //if we have a neighbor (at least 2 marbles are needed to even consider a push)
-                if (i != j && Math.abs(player[i][0].code - player[j][0].code) < 2 && Math.abs(player[i][1].code - player[j][1].code) < 2 && player[i][0].code - player[j][0].code + player[i][1].code - player[j][1].code != 0) {
+                if (i != j && abs(player[i][0].code - player[j][0].code) < 2 && abs(player[i][1].code - player[j][1].code) < 2 && player[i][0].code - player[j][0].code + player[i][1].code - player[j][1].code != 0) {
                     for (k in opponent.indices) {
                         if (player[i][0].code - opponent[k][0].code == -(player[i][0].code - player[j][0].code) && player[i][1].code - opponent[k][1].code == -(player[i][1].code - player[j][1].code)) {
                             //found a marble to potentially push, needs checking maybe Opp has more marbles
@@ -122,7 +122,7 @@ class Strategies(private val gameState: GameState?) {
                                                     }
                                                 }
                                                 if (possible2) {
-                                                    groupStrengh++
+                                                    groupStrength++
                                                 }
                                             }
                                         }
@@ -130,14 +130,14 @@ class Strategies(private val gameState: GameState?) {
                                 }
                             }
                             if (possible) {
-                                groupStrengh++
+                                groupStrength++
                             }
                         }
                     }
                 }
             }
         }
-        return groupStrengh
+        return groupStrength
     }
 
     fun amountOppMarbles(): Int {
@@ -164,8 +164,8 @@ class Strategies(private val gameState: GameState?) {
         var playerDisAv = 0.0
         for (i in opponent.indices) {
             playerDisAv += sqrt(
-                (boardState.boardState!![opponent[i]]!!.centerX - centerX).pow(2.0) + Math.pow(
-                    boardState.boardState!![opponent[i]]!!.centerY - centerY, 2.0
+                (boardState.boardState!![opponent[i]]!!.centerX - centerX).pow(2.0) + (boardState.boardState!![opponent[i]]!!.centerY - centerY).pow(
+                    2.0
                 )
             )
         }
@@ -174,7 +174,7 @@ class Strategies(private val gameState: GameState?) {
     }
 
     fun danger(): Int {
-        val board = gameState!!.boardState
+        gameState!!.boardState
         val rows = GameData.rows
         var sum = 0
         sum += dangerRow(rows.horizontal as ArrayList<ArrayList<String?>?>?)

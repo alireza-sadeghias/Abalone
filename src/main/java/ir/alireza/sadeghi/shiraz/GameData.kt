@@ -1,8 +1,9 @@
 package ir.alireza.sadeghi.shiraz
 
 /*
- * Manages some of the data needed to play the game.
- */   object GameData {
+ * Manages some data needed to play the game.
+ */
+object GameData {
     var move = Move()
     var score = IntArray(3)
     var numberPlayers = 2

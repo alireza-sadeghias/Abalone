@@ -1,0 +1,4 @@
+AInumber: 6
+Gen: 3
+Moves: 124
+Marbles: -1

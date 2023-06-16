@@ -19,54 +19,54 @@ class SettingsPane {
         mainCont.vgap = 10.0
         mainCont.hgap = 50.0
         val oneContent =
-            Text("Important: To be able to play the game first select the mode with which you prefer to play; human vs human or human vs computer. Computer vs computer can run a game of AI's.")
+            Text("مهم: برای اینکه بتوانید بازی کنید باید یکی از مودها را انتخاب کنید. انسان در مقابل انسان، انسان در مقابل رایانه، رایانه در مقابل رایانه که تمام توسط هوش مصنوعی انجام می شود.")
         val oneCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list1: ObservableList<Node> = oneCont.children
         list1.addAll(oneContent)
         val fourContent =
-            Text("1. Firstly, you need to understand the rules of the game. See the rules. In PvP or PvC mode you need to play yourself.")
+            Text("1-اول از همه باید قوانین بازی را یاد بگیرید. در بازی مقابل انسان و یا بازی در مقابل رایانه شما باید بتوانید خودتان بازی کنید.")
         val fourCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list4: ObservableList<Node> = fourCont.children
         list4.addAll(fourContent)
         val fiveContent =
-            Text(" 2. If you click on one of the marbles then it will become purple. This means that this one is selected to be the 'head' node now. ")
+            Text("2- اگر بر روی یک خانه کلیک کنید به رنگ بنفش در می آید که به معنای این است که این خانه اول یا سر می باشد.")
         val fiveCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list5: ObservableList<Node> = fiveCont.children
         list5.addAll(fiveContent)
         val sixContent =
-            Text(" 3. If you only want to select the one marble you chose before, click the marble again. Once it's orange,you know the selection step ended.")
+            Text("3- اگر فقط همان مهره را می خواهید انتخاب نمایید کافیست تا دوباره بر روی آن کلیک نمایید. زمانی که به رنگ نارنجی درامد مرحله انتخاب تمام شده است.")
         val sixCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list6: ObservableList<Node> = sixCont.children
         list6.addAll(sixContent)
         val sevenContent =
-            Text(" 4. If you want to select more marbles, do not click on the first one twice, but click on another marble adjacent to this one. It is possible to click on the third adjacent one now as well, as long as it's adjacent to the second one.")
+            Text("4- اگر میخواهید مهره های بیشتری را انتخاب کنید، بر روی خانه اول دوبار کلیک نکنید. بر روی مهره مجاور آن کلیک کنید. می توانید بر روی مهره سوم نیز کلیک کنید. این کار زمانی که این مهره مجاور دومی باشد امکان پذیر می باشد.")
         val sevenCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list7: ObservableList<Node> = sevenCont.children
         list7.addAll(sevenContent)
         val eightContent =
-            Text(" 5. If the selection needs to be ended at two, click on one of the two marbles again. If you choose three, the selection will be ended automatically. If you are done with selection then the marbles will be highlighted with yellow and orange colors.")
+            Text("5- زملنی که میخواهید با دو مهره حرکت کنید کافیست بر روی یکی از این دو مهره دوباره کلیک کنید. با انتخاب سه مهر مرحله انتخاب به طور خودکار پایان می پذیرد. با تمام شدن مرحله انتخاب مهره ها به رنگ زرد و نارنجی در می آیند.")
         val eightCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list8: ObservableList<Node> = eightCont.children
         list8.addAll(eightContent)
         val nineContent =
-            Text(" 6. Now, you can click on another hexagon, that needs to be adjacent to the 'head'. If it's possible, it will move, otherwise, the move will be reset.")
+            Text("6- حالا می توانید بر روی یک شش ضلعی دیگر که کنار سر یا مهره آغازی مجاور باشد کلیک کنید. اگر ممکن باشد مهره ها جابجا می شوند در غیر این صورت حرکت ریست می شود.")
         val nineCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list9: ObservableList<Node> = nineCont.children
         list9.addAll(nineContent)
-        val tenContent = Text(" 7. Once you performed a move, you need you have to wait for your opponent to move.")
+        val tenContent = Text("7- وقتی حرکت شما انجام شد باید منتظر حریف باشید تا حرکت خود را انجام دهد.")
         val tenCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list10: ObservableList<Node> = tenCont.children
         list10.addAll(tenContent)
         val elevenContent =
-            Text("8. To push the opponent marbles (if possible) then click on the marble that you want to push after the selection step is done. Then you gain a point.")
+            Text("8- برای بیرون کردن مهره حریف در صورت امکان باید بر روی مهره ای که می خواهید بیرون کنید کلیک کنید. با بیرون کردن مهره شما یک امتیاز می گیرید.")
         val elevenCont = TextFlow()
         //Retrieving the observable list of the TextFlow Pane
         val list11: ObservableList<Node> = elevenCont.children

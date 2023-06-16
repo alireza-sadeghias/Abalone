@@ -16,10 +16,6 @@ class Node<T>(var data: T) {
         children!!.add(child)
     }
 
-    fun removeChildOnIndex(i: Int) {
-        children!!.removeAt(i)
-    }
-
     fun returnData(): T {
         return data
     }

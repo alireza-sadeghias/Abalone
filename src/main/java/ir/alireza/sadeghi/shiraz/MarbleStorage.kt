@@ -13,7 +13,7 @@ class MarbleStorage {
         //firstly, the clickable layer beneath it
         var ch = 'A'
         while (ch <= 'I') {
-            val letterCode = Character.toString(ch)
+            val letterCode = ch.toString()
             for (j in 0..9) {
                 if (Board.hashBoard[letterCode + j] != null) {
                     val p = Marble(
@@ -149,9 +149,9 @@ class MarbleStorage {
             }
             //player 3
             for (j in 8..9) {
-                var ch = 'A'
-                while (ch <= 'I') {
-                    val letterCode = ch.toString()
+                var char = 'A'
+                while (char <= 'I') {
+                    val letterCode = char.toString()
                     if (Board.hashBoard.containsKey(letterCode + j)) {
                         val p = Marble(
                             Board.hashBoard[letterCode + j]!!.centerX,
@@ -163,7 +163,7 @@ class MarbleStorage {
                         Board.hashBoard[letterCode + j]!!.setFull(p)
                         storage.add(p)
                     }
-                    ch++
+                    char++
                 }
             }
         }

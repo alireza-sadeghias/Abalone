@@ -2,7 +2,6 @@ package ir.alireza.sadeghi.shiraz
 
 import ir.alireza.sadeghi.shiraz.*
 import javafx.application.Application
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
@@ -12,7 +11,6 @@ import javafx.scene.control.Label
 import javafx.scene.effect.DropShadow
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
 import javafx.scene.paint.Color
 import javafx.scene.text.*
@@ -20,10 +18,8 @@ import javafx.stage.Screen
 import org.apache.logging.log4j.LogManager
 
 import ir.alireza.sadeghi.shiraz.ai.ReadMatrix
-import ir.alireza.sadeghi.shirazimport.GameGui
 import javafx.scene.Scene
 import javafx.stage.Stage
-import java.io.FileInputStream
 import kotlin.Throws
 import kotlin.jvm.JvmStatic
 
@@ -36,13 +32,13 @@ class Main : Application() {
 
     @Throws(Exception::class)
     override fun start(primaryStage: Stage) {
-        Main.logger.trace("Running on: " + System.getProperty("os.name"))
+        logger.trace("Running on: " + System.getProperty("os.name"))
         if (System.getProperty("os.name").contains("Windows")) {
             ReadMatrix.slash = "\\"
         } else {
             ReadMatrix.slash = "//"
         }
-        primaryStage.title = "Team 1 -  Project 2.1"
+        primaryStage.title = "آبالون _ علیرضا صادقی"
         val sliderBox = VBox()
         sliderBox.alignment = Pos.CENTER
         sliderBox.prefHeight = 500.0
@@ -103,12 +99,12 @@ class Main : Application() {
         modeThreeContainer.padding = Insets(10.0, 10.0, 10.0, 10.0)
 
         //some fancy shadow effects
-        modeOneContainer.onMouseEntered = EventHandler { t: MouseEvent? -> hvh.effect = shadow }
-        modeOneContainer.onMouseExited = EventHandler { t: MouseEvent? -> hvh.effect = null }
-        modeTwoContainer.onMouseEntered = EventHandler { t: MouseEvent? -> hvc.effect = shadow }
-        modeTwoContainer.onMouseExited = EventHandler { t: MouseEvent? -> hvc.effect = null }
-        modeThreeContainer.onMouseEntered = EventHandler { t: MouseEvent? -> cvc.effect = shadow }
-        modeThreeContainer.onMouseExited = EventHandler { t: MouseEvent? -> cvc.effect = null }
+        modeOneContainer.onMouseEntered = EventHandler { hvh.effect = shadow }
+        modeOneContainer.onMouseExited = EventHandler { hvh.effect = null }
+        modeTwoContainer.onMouseEntered = EventHandler { hvc.effect = shadow }
+        modeTwoContainer.onMouseExited = EventHandler { hvc.effect = null }
+        modeThreeContainer.onMouseEntered = EventHandler { cvc.effect = shadow }
+        modeThreeContainer.onMouseExited = EventHandler { cvc.effect = null }
         modeOneContainer.children.addAll(hvh, modeOneLabel)
         modeOneContainer.alignment = Pos.CENTER
         modeTwoContainer.children.addAll(hvc, modeTwoLabel)
@@ -191,26 +187,26 @@ class Main : Application() {
         setSubTitleCont.children.add(setSubTitle)
         setSubTitleCont.prefHeight = 50.0
         setSubTitle.style = "-fx-font-size: 20px;"
-        val SetCont = SettingsPane().create()
-        setMainCont.children.addAll(settingsTitleCont, setSubTitleCont, SetCont, backCont3)
+        val setCont = SettingsPane().create()
+        setMainCont.children.addAll(settingsTitleCont, setSubTitleCont, setCont, backCont3)
         val setScene = Scene(setMainCont)
-        rules.onAction = EventHandler<ActionEvent> { e: ActionEvent? ->
+        rules.onAction = EventHandler {
             primaryStage.scene = ruleScene
-            back2.onAction = EventHandler { f: ActionEvent? -> primaryStage.scene = scene }
+            back2.onAction = EventHandler { primaryStage.scene = scene }
         }
-        settings.onAction = EventHandler<ActionEvent> { e: ActionEvent? ->
+        settings.onAction = EventHandler {
             primaryStage.scene = setScene
-            back3.onAction = EventHandler { f: ActionEvent? -> primaryStage.scene = scene }
+            back3.onAction = EventHandler { primaryStage.scene = scene }
         }
 
         //changing to the board scene
         modeOneContainer.isPickOnBounds = true // allows click on transparent areas
-        modeOneContainer.onMouseClicked = EventHandler { e: MouseEvent? ->
+        modeOneContainer.onMouseClicked = EventHandler {
             gameGui = GameGui()
             gameGui!!.start(primaryStage)
         }
         modeTwoContainer.isPickOnBounds = true // allows click on transparent areas
-        modeTwoContainer.onMouseClicked = EventHandler<MouseEvent> { event: MouseEvent? ->
+        modeTwoContainer.onMouseClicked = EventHandler {
             Move.player1AI = false
             if (GameData.numberPlayers == 2) {
                 Move.player2AI = true
@@ -223,14 +219,14 @@ class Main : Application() {
             gameGui!!.start(primaryStage)
         }
         modeThreeContainer.isPickOnBounds = true // allows click on transparent areas
-        modeThreeContainer.onMouseClicked = EventHandler<MouseEvent> { event: MouseEvent? ->
+        modeThreeContainer.onMouseClicked = EventHandler {
             Move.player1AI = true
             Move.player2AI = true
             if (GameData.numberPlayers == 3) {
                 Move.player3AI = true
             }
             gameGui = GameGui()
-            gameGui!!.setAIAI(true)
+            gameGui!!.setAI(true)
             gameGui!!.start(primaryStage)
         }
     }

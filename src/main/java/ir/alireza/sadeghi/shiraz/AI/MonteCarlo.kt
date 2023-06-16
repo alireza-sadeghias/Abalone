@@ -1,8 +1,8 @@
 package ir.alireza.sadeghi.shiraz.ai
 
 import ir.alireza.sadeghi.shiraz.BoardMethods
+import ir.alireza.sadeghi.shiraz.GameMethods
 import ir.alireza.sadeghi.shiraz.Hexagon
-import ir.alireza.sadeghi.shirazimport.GameMethods
 import org.apache.logging.log4j.LogManager
 import java.util.*
 import kotlin.math.ln
