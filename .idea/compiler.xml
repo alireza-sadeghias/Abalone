@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BoardGameAI" />
+        <module name="Abalone_game" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BoardGameAI" target="11" />
+      <module name="Abalone_game" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

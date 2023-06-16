@@ -2,7 +2,6 @@ package ir.alireza.sadeghi.shiraz.ai.weight.optimisation
 
 import ir.alireza.sadeghi.shiraz.ai.ReadMatrix
 import org.apache.logging.log4j.LogManager
-import java.util.Arrays
 
 object SortResults {
     private val logger = LogManager.getLogger(SortResults::class.java)
